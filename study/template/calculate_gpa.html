@@ -1,0 +1,577 @@
+<!DOCTYPE html> <!– For HTML 5 –>
+
+ 
+
+<html lang=”en”>
+
+ 
+
+<head>
+
+ 
+
+<title>Calculate GPA</title>
+
+ 
+
+<meta charset=”utf-8″/>
+
+ 
+
+<meta name=”viewport” content=”width=device-width, initial-scale=1.0″
+
+ 
+
+<!– Added style for the html content –>
+
+ 
+
+<style type=”text/css”>
+
+ 
+
+table {
+
+ 
+
+width:100%;
+
+ 
+
+border-collapse:separate;
+
+ 
+
+border-spacing: 0 1em;
+
+ 
+
+}
+
+ 
+
+tr {
+
+ 
+
+padding:10px;
+
+ 
+
+border-bottom: 1pt solid grey;
+
+ 
+
+}
+
+ 
+
+</style>
+
+ 
+
+<!– JQuery CDN is referred to make the jquery to work on this page –>
+
+ 
+
+<script src=”https://code.jquery.com/jquery-3.3.1.min.js”></script>
+
+ 
+
+<!– customized jquery functions for actions –>
+
+ 
+
+<script type=”text/javascript”>
+
+ 
+
+$(document).ready(function(){
+
+ 
+
+//Global variables
+
+ 
+
+var courseCount = 1;
+
+ 
+
+var totalCredits = 0;
+
+ 
+
+var totalGradePoints = 0;
+
+ 
+
+//Reset form click event
+
+ 
+
+$(“#btnReset”).click(function(){
+
+ 
+
+location.reload(true);
+
+ 
+
+});
+
+ 
+
+//Calculate button click event
+
+ 
+
+$(“#btnCalc”).click(function(){
+
+ 
+
+courseCount = 1;
+
+ 
+
+totalCredits = 0;
+
+ 
+
+totalGradePoints = 0;
+
+ 
+
+//get row count in table
+
+ 
+
+var rowCount = $(‘#tblCourse tr’).length -3;
+
+ 
+
+//Run loop for each course
+
+ 
+
+for(var i=0; i<rowCount; i++)
+
+ 
+
+{
+
+ 
+
+var eleNum = i+1;
+
+ 
+
+//Get the credit hours and grade points from each row
+
+ 
+
+var creditsHr = $(“#txtHours_”+ eleNum).val();
+
+ 
+
+var grade = $(“#txtGrade_”+ eleNum).val();
+
+ 
+
+var g = grade.toLowerCase();
+
+ 
+
+//convert grade to grade points
+
+ 
+
+var gradePoint = g === “a” ? 4 : g === “b+” ? 3.5 : g === “b” ? 3 : g === “c+” ? 2.5 : g === “c” ? 2 : g === “d+” ? 1.5 : g === “d” ? 1 : g === “f” ? 0 : g === “i” ? 2.3           : 0;
+
+ 
+
+//store credit hours and grade point for each course
+
+ 
+
+totalCredits += parseInt(creditsHr);
+
+ 
+
+totalGradePoints += parseInt(gradePoint) * parseInt(creditsHr);
+
+ 
+
+}
+
+ 
+
+//Calculation of GPA starts here
+
+ 
+
+var currentHours = $(“#txtCurrentHours”).val();
+
+ 
+
+var currentGPA = $(“#txtCurrentGPA”).val();
+
+ 
+
+if(!$.isNumeric(currentHours))
+
+ 
+
+currentHours = 0;
+
+ 
+
+if(!$.isNumeric(currentGPA))
+
+ 
+
+currentGPA = 0;
+
+ 
+
+//Calculate Sem GPA
+
+ 
+
+var semGPA = totalGradePoints/totalCredits;
+
+ 
+
+var cumGPA = (semGPA+parseFloat(currentGPA))/2;
+
+ 
+
+//Display semester GPA, total credits and cumulative GPA
+
+ 
+
+$(“#lblTotalCredits”).text(parseInt(currentHours) + totalCredits);
+
+ 
+
+$(“#lblSemGPA”).text(semGPA.toFixed(2));
+
+ 
+
+$(“#lblCumGPA”).text(cumGPA.toFixed(2));
+
+ 
+
+});
+
+ 
+
+//Add another row click event
+
+ 
+
+$(“#lnkAddRow”).click(function(){
+
+ 
+
+courseCount++;
+
+ 
+
+if(courseCount <= 10)
+
+ 
+
+{
+
+ 
+
+//Row template
+
+ 
+
+var row = “<tr>”+
+
+ 
+
+“<td>”+courseCount+”</td>”+
+
+ 
+
+“<td><input type=’text’ id=’txtCourse_”+courseCount+”‘/></td>”+
+
+ 
+
+“<td><input type=’number’ id=’txtHours_”+courseCount+”‘/></td>”+
+
+ 
+
+“<td><input type=’text’ id=’txtGrade_”+courseCount+”‘/></td>”+
+
+ 
+
+“</tr>”;
+
+ 
+
+//Add template row to table
+
+ 
+
+$(“#tblCourse”).append(row);
+
+ 
+
+}
+
+ 
+
+else
+
+ 
+
+{
+
+ 
+
+alert(“Only ten courses are allowed to add!”);
+
+ 
+
+}
+
+ 
+
+return false;
+
+ 
+
+});
+
+ 
+
+});
+
+ 
+
+</script>
+
+ 
+
+</head>
+
+ 
+
+<body>
+
+ 
+
+<table id=”tblCourse”>
+
+ 
+
+<tr>
+
+ 
+
+<td>Current GPA: </td>
+
+ 
+
+<td><input type=”text” id=”txtCurrentGPA”/></td>
+
+ 
+
+<td colspan=”2″>Write your current academic GPA in numbers. Example: 3.45</td>
+
+ 
+
+</tr>
+
+ 
+
+<tr>
+
+ 
+
+<td>Current Hours: </td>
+
+ 
+
+<td><input type=”text” id=”txtCurrentHours”/></td>
+
+ 
+
+<td colspan=”2″>How many hours have you finished EXCLUDING this semester? Example: 44</td>
+
+ 
+
+</tr>
+
+ 
+
+<tr>
+
+ 
+
+<td><u>Number</u></td>
+
+ 
+
+<td><u>Course Name (Optional)</u></td>
+
+ 
+
+<td><u>Credit Hours</u></td>
+
+ 
+
+<td><u>Expected Grade</u></td>
+
+ 
+
+</tr>
+
+ 
+
+<tr>
+
+ 
+
+<td>1</td>
+
+ 
+
+<td><input type=”text” id=”txtCourse_1″/></td>
+
+ 
+
+<td><input type=”number” id=”txtHours_1″/></td>
+
+ 
+
+<td><input type=”text” id=”txtGrade_1″/></td>
+
+ 
+
+</tr>
+
+ 
+
+</table><br/><hr/>
+
+ 
+
+<a href=”#” id=”lnkAddRow”>+ ADD ANOTHER COURSE</a>
+
+ 
+
+<hr/>
+
+ 
+
+<table>
+
+ 
+
+<tr>
+
+ 
+
+<td><button id=”btnCalc”>Calculate GPA</button></td>
+
+ 
+
+<td><button id=”btnReset”>Reset Fields</button></td>
+
+ 
+
+</tr>
+
+ 
+
+</table>
+
+ 
+
+<h3><u>RESULTS:</u></h3>
+
+ 
+
+<hr/>
+
+ 
+
+<table>
+
+ 
+
+<tr>
+
+ 
+
+<td>Total credit of this semester</td>
+
+ 
+
+<td>=</td>
+
+ 
+
+<td><label id=”lblTotalCredits”></label></td>
+
+ 
+
+</tr>
+
+ 
+
+<tr>
+
+ 
+
+<td>Semester GPA</td>
+
+ 
+
+<td>=</td>
+
+ 
+
+<td><label id=”lblSemGPA”></label></td>
+
+ 
+
+</tr>
+
+ 
+
+<tr>
+
+ 
+
+<td>Cumulative GPA</td>
+
+ 
+
+<td>=</td>
+
+ 
+
+<td><label id=”lblCumGPA”></label></td>
+
+ 
+
+</tr>
+
+ 
+
+</table>
+
+ 
+
+</body>
+
+ 
+
+</html>

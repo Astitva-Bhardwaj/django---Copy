@@ -1,0 +1,36 @@
+{% extends 'mainheader.html' %}
+{% block title %}Books{% endblock title %}
+{% block body %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'cse.css' %}">
+
+<div class="container md-20 my-3">
+    <h2 class="my-3 text-center font-weight-bold">BOOKS</h2>
+    
+    <div class="row">
+        <div class="col-md-5 ml-5">
+          <div class="card mb-4 shadow-sm" >
+            <!-- <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg> -->
+            <img src="/static/img/books/letuspython.jpg" width="1137" height="386" class="d-block w-100" alt="...">
+            <div class="card-body">
+              <p class="card-text font-weight-bold text-center d-block p-2 bg-primary text-white h3">BOOKS</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a href='https://pdfrock.com/download/compresspdf'>
+                  <button type="button" class="btn btn-outline-primary btn-lg">CLICK HERE TO DOWNLOAD</button>
+                  <!-- {% comment %} <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button> {% endcomment %} -->
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock body %}

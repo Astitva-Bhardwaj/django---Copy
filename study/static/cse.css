@@ -1,0 +1,33 @@
+body{
+    background-image: url(/static/img/css-s.jpg);
+    /* background: #1e37c3; */
+      /* Full height */
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+ul{
+    /* display: ; */
+    width: 100%;
+    height: auto;
+    margin: auto;
+    max-width: 1000px;
+    justify-content: space-between;
+    text-align: center;
+}
+li{
+    padding: auto;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: #e10101;
+    min-width: 80px;
+    margin: auto;
+    text-decoration-color: black;
+    font-weight: bold;
+}
+.navbar{
+    background-color: #e10101;
+}
